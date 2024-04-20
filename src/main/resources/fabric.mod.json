@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "rebirth",
-  "version": "1.4",
+  "version": "1.5",
 
   "name": "Rebirth",
   "description": "Hacked client running on Fabric 1.20.1",

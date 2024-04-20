@@ -8,7 +8,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.Session;
 import java.io.*;
 import java.lang.invoke.MethodHandles;
-import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
@@ -21,7 +20,7 @@ public final class Rebirth implements ModInitializer {
 	}
 
 	public static final String LOG_NAME = "Rebirth";
-	public static final String VERSION = "1.6";
+	public static final String VERSION = "1.5";
 	public static String PREFIX = ";";
 	public static final EventBus EVENT_BUS = new EventBus();
 	// Systems

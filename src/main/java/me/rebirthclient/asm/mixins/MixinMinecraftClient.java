@@ -80,6 +80,5 @@ public abstract class MixinMinecraftClient extends ReentrantThreadExecutor<Runna
 		if (this.world != null) {
 			Rebirth.update();
 		}
-		Rebirth.RUN.run();
 	}
 }
